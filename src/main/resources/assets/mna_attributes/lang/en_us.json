@@ -1,0 +1,15 @@
+{
+  "attribute.name.mna_attributes.max_mana": "Max Mana",
+  "attribute.name.mna_attributes.max_mana_multiplier": "Max Mana Multiplier",
+  "attribute.name.mna_attributes.mana_regen": "Mana Regen",
+  "attribute.name.mna_attributes.cast_speed": "Cast Speed",
+  "attribute.name.mna_attributes.spell_efficiency": "Spell Efficiency",
+  "attribute.name.mna_attributes.spell_damage": "Spell Damage",
+  "attribute.name.mna_attributes.spell_damage_multiplier": "Spell Damage Multiplier",
+  "attribute.name.mna_attributes.affinity_arcane": "Arcane Magic Affinity",
+  "attribute.name.mna_attributes.affinity_earth": "Earth Magic Affinity",
+  "attribute.name.mna_attributes.affinity_ender": "Ender Magic Affinity",
+  "attribute.name.mna_attributes.affinity_fire": "Fire Magic Affinity",
+  "attribute.name.mna_attributes.affinity_water": "Water Magic Affinity",
+  "attribute.name.mna_attributes.affinity_wind": "Wind Magic Affinity"
+}

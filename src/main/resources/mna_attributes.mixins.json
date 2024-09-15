@@ -1,0 +1,17 @@
+{
+  "required": true,
+  "package": "com.energizedblast.mna_attributes.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "${modid}.refmap.json",
+  "mixins": [
+    "AbilitiesMixin",
+    "AttributeInstanceAccessor",
+    "AttributeMapMixin",
+    "LivingEntityMixin",
+    "PlayerMixin"
+  ],
+  "client": [
+    "client.ClientPacketListenerMixin"
+  ],
+  "minVersion": "0.8"
+}
