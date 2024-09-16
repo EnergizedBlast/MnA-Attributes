@@ -21,12 +21,15 @@ buildscript {
     }
 }
 
-apply plugin: 'net.neoforged.gradle'
-apply plugin: 'org.parchmentmc.librarian.forgegradle'
-apply plugin: 'idea'
-apply plugin: 'maven-publish'
-apply plugin: "com.matthewprenger.cursegradle"
-apply plugin: 'org.spongepowered.mixin'
+plugins {
+    id 'idea'
+    id 'eclipse'
+    id 'maven-publish'
+    id 'net.neoforged.gradle' version '[6.0.18, 6.2)'
+    id 'org.parchmentmc.librarian.forgegradle' version '1.+'
+    id 'com.diffplug.eclipse.apt' version '3.42.2'
+    id 'org.spongepowered.mixin' version '0.7.+'
+}
 
 version = "${minecraft_version}-${api_name}-${mod_version}"
 group = "${mod_group}" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
@@ -76,7 +79,7 @@ minecraft {
         }
 
         data {
-            args '--mod', "${mod_id}", '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+            args '--mod', "mna_attributes", '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
         }
     }
 }
@@ -108,10 +111,8 @@ dependencies {
 }
 
 mixin {
-    if (project.mixin.toBoolean()) {
         config "mna_attributes.mixins.json"
         add sourceSets.main, "mna_attributes.refmap.json"
-    }
 }
 
 
