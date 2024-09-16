@@ -6,6 +6,7 @@ import com.mna.api.affinity.Affinity;
 import com.mna.api.events.AffinityChangedEvent;
 import com.mna.api.events.SpellCooldownCalculatingEvent;
 import com.mna.capabilities.playerdata.magic.PlayerMagicProvider;
+import dev.shadowsoffire.attributeslib.api.AttributeChangedValueEvent;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
@@ -47,8 +48,8 @@ public class RuntimeEvents {
         }
     }
 
-    @SubscribeEvent(priority = EventPriority.HIGHEST)
-    public static void onAttributeChangeUpdate(MnAAttributeChangedValueEvent event)
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    public static void onAttributeChangeUpdate(AttributeChangedValueEvent event)
     {
         if (event.getEntity() instanceof Player player)
         {
@@ -58,7 +59,7 @@ public class RuntimeEvents {
             if (AttributeRegistry.isMnaAttribute(attr))
             {
                 player.getCapability(PlayerMagicProvider.MAGIC).ifPresent(pPlayer -> {
-                    AttributeHandlers.updateAttributesFromEvent(event);
+                    AttributeHandlers.updateAttributesFromEvent(player);
                 });
             }
         }

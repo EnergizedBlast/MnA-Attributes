@@ -63,8 +63,6 @@ minecraft {
             workingDirectory project.file("run/${it.name}")
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
-            property 'mixin.env.remapRefMap', 'true'
-            property 'mixin.env.refMapRemappingFile', "${buildDir}/createSrgToMcp/output.srg"
 
             mods {
                 "mna_attributes" {
@@ -97,6 +95,13 @@ repositories {
             includeGroup "curse.maven"
         }
     }
+    maven {
+        // Shadows
+        url "https://maven.shadowsoffire.dev/releases"
+        content {
+            includeGroup "dev.shadowsoffire"
+        }
+    }
     flatDir {
         dirs "libs"
     }
@@ -111,19 +116,17 @@ dependencies {
     implementation fg.deobf("curse.maven:mana-and-artifice-${mna_projectId}:${mna_fileId}")
     implementation fg.deobf("curse.maven:curios-${curios_projectId}:${curios_fileId}")
     implementation fg.deobf("curse.maven:geckolib-${geckolib_projectId}:${geckolib_fileId}")
-}
 
-mixin {
-    add sourceSets.main, "mna_attributes.refmap.json"
-    config "mna_attributes.mixins.json"
+    // compat dependencies
+    implementation fg.deobf("curse.maven:apothic-attributes-${attributeslib_projectId}:${attributeslib_fileId}")
+    implementation fg.deobf("dev.shadowsoffire:Placebo:${minecraft_version}-${placebo_version}")
 }
-
 
 tasks.withType(ProcessResources).configureEach {
     var replaceProperties = [
             minecraft_version       : minecraft_version, minecraft_version_range: minecraft_version_range,
             api_version             : api_version, api_version_range: api_version_range, api_name: api_name,
-            loader_version_range    : loader_version_range, mna_version_range: mna_version_range,
+            loader_version_range    : loader_version_range, mna_version_range: mna_version_range, attributeslib_version_range: attributeslib_version_range,
             mod_id                  : mod_id, mod_description: mod_description, mod_name: mod_name, mod_logo: mod_logo,
             mod_license             : mod_license, mod_version: mod_version, mod_authors: mod_authors,
             mod_credits             : mod_credits
@@ -131,53 +134,6 @@ tasks.withType(ProcessResources).configureEach {
     inputs.properties replaceProperties
     filesMatching(['META-INF/mods.toml']) {
         expand replaceProperties + [project: project]
-    }
-
-    // Test mixin automatic assigning
-    filesMatching('mna_attributes.mixin.json') {
-        def mixinFiles = []
-        def clientMixinFiles = []
-
-        def path = "${project.projectDir}/src/main/java/${mod_group}/${mod_id}/mixin".replaceAll('\\.', '/')
-        fileTree(path).visit { FileVisitDetails details ->
-            def name = details.file.path.replace('\\', '/')
-            name = name.substring(name.indexOf('mixin/') + 'mixin/'.length(), name.length())
-            if(name.endsWith('.java')) {
-                name = name.substring(0, name.length() - '.java'.length())
-                if(name.startsWith('client')) {
-                    clientMixinFiles.add(name)
-                } else {
-                    mixinFiles.add(name)
-                }
-            }
-        }
-
-        def mixins = ''
-        def clientMixins = ''
-
-        for (int i = 0; i < mixinFiles.size(); i++) {
-            def name = mixinFiles[i]
-            name = name.replaceAll('\\/', '.')
-            mixins += '        "' + name + '"'
-            if (i != mixinFiles.size() - 1) {
-                mixins += ',\n'
-            }
-        }
-
-        for (int i = 0; i < clientMixinFiles.size(); i++) {
-            def name = clientMixinFiles[i]
-            name = name.replaceAll('\\/', '.')
-            clientMixins += '        "' + name + '"'
-            if (i != clientMixinFiles.size() - 1) {
-                clientMixins += ',\n'
-            }
-        }
-
-        replaceProperties.put('mixins', mixins)
-        replaceProperties.put('clientMixins', clientMixins)
-
-        expand replaceProperties
-        name "${mod_id}.mixins.json".toString()
     }
 }
 
@@ -190,8 +146,7 @@ tasks.named('jar', Jar).configure {
                 'Implementation-Title'    : project.name,
                 'Implementation-Version'  : project.jar.archiveVersion,
                 'Implementation-Vendor'   : mod_authors,
-                'Implementation-Timestamp': new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
-                "MixinConfigs": project.mixin.toBoolean() ? "${mod_id}.mixins.json" : ""
+                'Implementation-Timestamp': new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }
 
