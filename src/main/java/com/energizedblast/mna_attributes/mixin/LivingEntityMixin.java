@@ -39,27 +39,4 @@ public abstract class LivingEntityMixin extends Entity {
         ((IEntityOwned) attributes).setOwner((LivingEntity) (Object) this);
     }
 
-    @Shadow
-    public abstract boolean hasEffect(MobEffect ef);
-
-    @Shadow
-    public abstract MobEffectInstance getEffect(MobEffect ef);
-
-    /**
-     * @author ChampionAsh5357
-     * @reason Lock attribute updates for event until after new modifiers are added
-     */
-    @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/effect/MobEffect;removeAttributeModifiers(Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/entity/ai/attributes/AttributeMap;I)V"), method = "onEffectUpdated", require = 1)
-    public void mnaAttributes_onEffectUpdateRemoveAttribute(MobEffectInstance pEffectInstance, boolean pForced, Entity pEntity, CallbackInfo ci) {
-        ((IAttributeManager) attributes).setAttributesUpdating(true);
-    }
-
-    /**
-     * @author ChampionAsh5357
-     * @reason Unlock attribute updates for event until after new modifiers are added
-     */
-    @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/effect/MobEffect;addAttributeModifiers(Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/entity/ai/attributes/AttributeMap;I)V", shift = At.Shift.AFTER), method = "onEffectUpdated", require = 1)
-    public void mnaAttributes_onEffectUpdateAddAttribute(MobEffectInstance pEffectInstance, boolean pForced, Entity pEntity, CallbackInfo ci) {
-        ((IAttributeManager) attributes).setAttributesUpdating(false);
-    }
 }

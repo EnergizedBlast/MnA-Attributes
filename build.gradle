@@ -109,8 +109,8 @@ dependencies {
 
 mixin {
     if (project.mixin.toBoolean()) {
-        config "${mod_id}.mixins.json"
-        add sourceSets.main, "${mod_id}.refmap.json"
+        config "mna_attributes.mixins.json"
+        add sourceSets.main, "mna_attributes.refmap.json"
     }
 }
 
