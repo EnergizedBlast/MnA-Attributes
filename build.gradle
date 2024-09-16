@@ -1,8 +1,11 @@
 /*
+ *   Special thanks to Apothic Attributes and Arcane Additions for the build.gradle template and formatting!
+ *   (Keeping the copyright license here just in case despite the changes made)
+ *
  *   Arcane Additions Copyright (c)  2022, Kevin Kragenbrink <kevin@writh.net>
- *           This program comes with ABSOLUTELY NO WARRANTY; for details see <https://www.gnu.org/licenses/gpl-3.0.html>.
- *           This is free software, and you are welcome to redistribute it under certain
- *           conditions; detailed at https://www.gnu.org/licenses/gpl-3.0.html
+ *   This program comes with ABSOLUTELY NO WARRANTY; for details see <https://www.gnu.org/licenses/gpl-3.0.html>.
+ *   This is free software, and you are welcome to redistribute it under certain
+ *   conditions; detailed at https://www.gnu.org/licenses/gpl-3.0.html
  */
 
 buildscript {
@@ -34,7 +37,7 @@ plugins {
 version = "${minecraft_version}-${api_name}-${mod_version}"
 group = "${mod_group}" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 base {
-    archivesName = "${mod_id}-${api_name}-${minecraft_version}"
+    archivesName = "${mod_id}-${api_name}"
 }
 
 // Mojang ships Java 17 to end users in 1.18+, so your mod should target Java 17.
@@ -64,7 +67,7 @@ minecraft {
             property 'mixin.env.refMapRemappingFile', "${buildDir}/createSrgToMcp/output.srg"
 
             mods {
-                "${mod_id}" {
+                "mna_attributes" {
                     source sourceSets.main
                 }
             }
@@ -111,8 +114,8 @@ dependencies {
 }
 
 mixin {
-        config "mna_attributes.mixins.json"
-        add sourceSets.main, "mna_attributes.refmap.json"
+    add sourceSets.main, "mna_attributes.refmap.json"
+    config "mna_attributes.mixins.json"
 }
 
 
@@ -129,6 +132,53 @@ tasks.withType(ProcessResources).configureEach {
     filesMatching(['META-INF/mods.toml']) {
         expand replaceProperties + [project: project]
     }
+
+    // Test mixin automatic assigning
+    filesMatching('mna_attributes.mixin.json') {
+        def mixinFiles = []
+        def clientMixinFiles = []
+
+        def path = "${project.projectDir}/src/main/java/${mod_group}/${mod_id}/mixin".replaceAll('\\.', '/')
+        fileTree(path).visit { FileVisitDetails details ->
+            def name = details.file.path.replace('\\', '/')
+            name = name.substring(name.indexOf('mixin/') + 'mixin/'.length(), name.length())
+            if(name.endsWith('.java')) {
+                name = name.substring(0, name.length() - '.java'.length())
+                if(name.startsWith('client')) {
+                    clientMixinFiles.add(name)
+                } else {
+                    mixinFiles.add(name)
+                }
+            }
+        }
+
+        def mixins = ''
+        def clientMixins = ''
+
+        for (int i = 0; i < mixinFiles.size(); i++) {
+            def name = mixinFiles[i]
+            name = name.replaceAll('\\/', '.')
+            mixins += '        "' + name + '"'
+            if (i != mixinFiles.size() - 1) {
+                mixins += ',\n'
+            }
+        }
+
+        for (int i = 0; i < clientMixinFiles.size(); i++) {
+            def name = clientMixinFiles[i]
+            name = name.replaceAll('\\/', '.')
+            clientMixins += '        "' + name + '"'
+            if (i != clientMixinFiles.size() - 1) {
+                clientMixins += ',\n'
+            }
+        }
+
+        replaceProperties.put('mixins', mixins)
+        replaceProperties.put('clientMixins', clientMixins)
+
+        expand replaceProperties
+        name "${mod_id}.mixins.json".toString()
+    }
 }
 
 tasks.named('jar', Jar).configure {
@@ -140,7 +190,8 @@ tasks.named('jar', Jar).configure {
                 'Implementation-Title'    : project.name,
                 'Implementation-Version'  : project.jar.archiveVersion,
                 'Implementation-Vendor'   : mod_authors,
-                'Implementation-Timestamp': new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+                'Implementation-Timestamp': new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+                "MixinConfigs": project.mixin.toBoolean() ? "${mod_id}.mixins.json" : ""
         ])
     }
 

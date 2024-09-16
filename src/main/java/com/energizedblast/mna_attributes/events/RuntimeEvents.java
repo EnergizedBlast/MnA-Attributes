@@ -15,6 +15,9 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.RegistryObject;
 
+import java.security.KeyPair;
+import java.util.HashMap;
+
 @Mod.EventBusSubscriber
 public class RuntimeEvents {
 
@@ -31,9 +34,15 @@ public class RuntimeEvents {
         if (event.getEntity() instanceof Player player)
         {
             player.getCapability(PlayerMagicProvider.MAGIC).ifPresent(pPlayer -> {
+                HashMap<Affinity, Float> cachedValues = new HashMap<>();
                 for (Affinity iAffinity : Affinity.CoreSix())
                 {
-                    player.getAttribute(AttributeHandlers.getAffinityAttribute(iAffinity)).setBaseValue(pPlayer.getAffinityDepth(iAffinity));
+                    cachedValues.put(iAffinity, pPlayer.getAffinityDepth(iAffinity));
+                }
+                // Make sure all affinity values are captured before attribute setting causes attribute change events to fire and clear them
+                for (Affinity iAffinity : Affinity.CoreSix())
+                {
+                    player.getAttribute(AttributeHandlers.getAffinityAttribute(iAffinity)).setBaseValue(cachedValues.get(iAffinity));
                 }
             });
         }
