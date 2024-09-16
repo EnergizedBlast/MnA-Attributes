@@ -8,8 +8,8 @@ import net.minecraft.world.entity.LivingEntity;
 
 public interface IEntityOwned {
 
-    public LivingEntity getOwner();
+    public LivingEntity getMnaAttributesOwner();
 
-    public void setOwner(LivingEntity owner);
+    public void setMnaAttributesOwner(LivingEntity mnaAttributesOwner);
 
 }

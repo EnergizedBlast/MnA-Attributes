@@ -1,10 +1,7 @@
 package com.energizedblast.mna_attributes.mixin;
 
-import com.energizedblast.mna_attributes.events.AttributeChangedValueEvent;
-import com.energizedblast.mna_attributes.util.IAttributeManager;
+import com.energizedblast.mna_attributes.events.MnAAttributeChangedValueEvent;
 import com.energizedblast.mna_attributes.util.IEntityOwned;
-import net.minecraft.world.effect.MobEffect;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -31,12 +28,12 @@ public abstract class LivingEntityMixin extends Entity {
     }
 
     /**
-     * Constructor mixin to call {@link IEntityOwned#setOwner(LivingEntity)} on {@link #attributes}.<br>
-     * Supports {@link AttributeChangedValueEvent}.
+     * Constructor mixin to call {@link IEntityOwned#setMnaAttributesOwner(LivingEntity)} on {@link #attributes}.<br>
+     * Supports {@link MnAAttributeChangedValueEvent}.
      */
     @Inject(at = @At(value = "TAIL"), method = "<init>(Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/world/level/Level;)V", require = 1, remap = false)
     public void mnaAttributes_ownedAttrMap(EntityType<?> type, Level level, CallbackInfo ci) {
-        ((IEntityOwned) attributes).setOwner((LivingEntity) (Object) this);
+        ((IEntityOwned) attributes).setMnaAttributesOwner((LivingEntity) (Object) this);
     }
 
 }

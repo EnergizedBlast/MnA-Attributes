@@ -24,11 +24,11 @@ public class PlayerMixin {
     private Abilities abilities;
 
     /**
-     * Constructor mixin to call {@link IEntityOwned#setOwner(LivingEntity)} on {@link #abilities}.<br>
+     * Constructor mixin to call {@link IEntityOwned#setMnaAttributesOwner(LivingEntity)} on {@link #abilities}.<br>
      */
     @Inject(at = @At(value = "TAIL"), method = "<init>(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;FLcom/mojang/authlib/GameProfile;)V", require = 1, remap = false)
     public void mnaAttributes_ownedAbilities(Level level, BlockPos pos, float yRot, GameProfile profile, CallbackInfo ci) {
-        ((IEntityOwned) abilities).setOwner((LivingEntity) (Object) this);
+        ((IEntityOwned) abilities).setMnaAttributesOwner((LivingEntity) (Object) this);
     }
 
 }

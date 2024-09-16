@@ -13,18 +13,18 @@ import net.minecraft.world.entity.player.Abilities;
 @Mixin(Abilities.class)
 public class AbilitiesMixin implements IEntityOwned {
 
-    protected LivingEntity owner;
+    protected LivingEntity mnaAttributesOwner;
 
     @Override
-    public LivingEntity getOwner() {
-        return owner;
+    public LivingEntity getMnaAttributesOwner() {
+        return mnaAttributesOwner;
     }
 
     @Override
-    public void setOwner(LivingEntity owner) {
-        if (this.owner != null) throw new UnsupportedOperationException("Cannot set the owner when it is already set.");
-        if (owner == null) throw new UnsupportedOperationException("Cannot set the owner to null.");
-        this.owner = owner;
+    public void setMnaAttributesOwner(LivingEntity mnaAttributesOwner) {
+        if (this.mnaAttributesOwner != null) throw new UnsupportedOperationException("Cannot set the owner when it is already set.");
+        if (mnaAttributesOwner == null) throw new UnsupportedOperationException("Cannot set the owner to null.");
+        this.mnaAttributesOwner = mnaAttributesOwner;
     }
 
 }

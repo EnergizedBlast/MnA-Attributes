@@ -1,6 +1,6 @@
 package com.energizedblast.mna_attributes.handlers;
 
-import com.energizedblast.mna_attributes.events.AttributeChangedValueEvent;
+import com.energizedblast.mna_attributes.events.MnAAttributeChangedValueEvent;
 import com.energizedblast.mna_attributes.registry.AttributeRegistry;
 import com.mna.api.affinity.Affinity;
 import com.mna.api.capabilities.resource.ICastingResource;
@@ -15,7 +15,7 @@ public class AttributeHandlers
 {
 
     // TODO: Remove or change to just change the relevant attribute
-    public static void updateAttributesFromEvent(AttributeChangedValueEvent event)
+    public static void updateAttributesFromEvent(MnAAttributeChangedValueEvent event)
     {
         updateAttributes((Player)event.getEntity());
     }

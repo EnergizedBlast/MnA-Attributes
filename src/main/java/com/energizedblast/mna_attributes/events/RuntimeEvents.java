@@ -15,7 +15,6 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.RegistryObject;
 
-import java.security.KeyPair;
 import java.util.HashMap;
 
 @Mod.EventBusSubscriber
@@ -49,7 +48,7 @@ public class RuntimeEvents {
     }
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
-    public static void onAttributeChangeUpdate(AttributeChangedValueEvent event)
+    public static void onAttributeChangeUpdate(MnAAttributeChangedValueEvent event)
     {
         if (event.getEntity() instanceof Player player)
         {

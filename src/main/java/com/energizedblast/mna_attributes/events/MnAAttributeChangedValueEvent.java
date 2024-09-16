@@ -20,13 +20,13 @@ import net.minecraftforge.eventbus.api.Event;
  * </ul>
  * It is fired on {@link MinecraftForge#EVENT_BUS}.
  */
-public class AttributeChangedValueEvent extends Event {
+public class MnAAttributeChangedValueEvent extends Event {
 
     protected LivingEntity entity;
     protected AttributeInstance attrInst;
     protected double oldValue, newValue;
 
-    public AttributeChangedValueEvent(LivingEntity entity, AttributeInstance attrInst, double oldValue, double newValue) {
+    public MnAAttributeChangedValueEvent(LivingEntity entity, AttributeInstance attrInst, double oldValue, double newValue) {
         this.entity = entity;
         this.attrInst = attrInst;
         this.oldValue = oldValue;

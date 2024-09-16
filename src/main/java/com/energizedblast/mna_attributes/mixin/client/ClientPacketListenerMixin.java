@@ -2,7 +2,7 @@ package com.energizedblast.mna_attributes.mixin.client;
 
 import java.util.Iterator;
 
-import com.energizedblast.mna_attributes.events.AttributeChangedValueEvent;
+import com.energizedblast.mna_attributes.events.MnAAttributeChangedValueEvent;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -41,7 +41,7 @@ public class ClientPacketListenerMixin {
      * Injected after the for loop iterating {@link AttributeSnapshot#getModifiers()}, which is when after all client attribute modifiers have been cleared and
      * reapplied.
      * <p>
-     * Responsible for comparing {@link #mnaAttributes_lastValue} to the new value, and posting {@link AttributeChangedValueEvent} if necessary.<br>
+     * Responsible for comparing {@link #mnaAttributes_lastValue} to the new value, and posting {@link MnAAttributeChangedValueEvent} if necessary.<br>
      * This is required due to how attributes are synced, since all modifiers are cleared and reapplied instead of only adding/removing modifiers.
      */
     @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/ai/attributes/AttributeInstance;addTransientModifier(Lnet/minecraft/world/entity/ai/attributes/AttributeModifier;)V", shift = At.Shift.BY, by = 5), method = "handleUpdateAttributes(Lnet/minecraft/network/protocol/game/ClientboundUpdateAttributesPacket;)V", require = 1, locals = LocalCapture.CAPTURE_FAILHARD)
@@ -49,7 +49,7 @@ public class ClientPacketListenerMixin {
         if (inst != null) { // Due to the loop semantics, the injection point is also the point where the nullcheck will jump to, so we can receive null.
             double newValue = inst.getValue();
             if (newValue != mnaAttributes_lastValue) {
-                MinecraftForge.EVENT_BUS.post(new AttributeChangedValueEvent((LivingEntity) entity, inst, mnaAttributes_lastValue, newValue));
+                MinecraftForge.EVENT_BUS.post(new MnAAttributeChangedValueEvent((LivingEntity) entity, inst, mnaAttributes_lastValue, newValue));
             }
         }
     }
