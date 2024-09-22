@@ -1,9 +1,13 @@
 package com.energizedblast.mna_attributes;
 
+import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.config.ModConfigEvent;
+import net.minecraftforge.registries.RegistryObject;
+
+import static com.energizedblast.mna_attributes.registry.AttributeRegistry.*;
 
 @Mod.EventBusSubscriber(modid = MnAAttributes.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class Config
@@ -20,7 +24,7 @@ public class Config
     public static final ForgeConfigSpec.DoubleValue STARTING_CAST_SPEED = BUILDER
             .defineInRange("startingCastSpeedMultiplier", 1.0D, 0.001D, 2048.0D);
     public static final ForgeConfigSpec.DoubleValue STARTING_SPELL_DAMAGE = BUILDER
-            .defineInRange("startingSpellDamageModifier", 1.0D, -2048.0D, 2048.0D);
+            .defineInRange("startingSpellDamageModifier", 0.0D, -2048.0D, 2048.0D);
     public static final ForgeConfigSpec.DoubleValue STARTING_SPELL_DAMAGE_MULTIPLIER = BUILDER
             .defineInRange("startingSpellDamageMultiplier", 1.0D, 0.0D, 2048.0D);
     public static final ForgeConfigSpec.DoubleValue STARTING_SPELL_EFFICIENCY = BUILDER
@@ -31,20 +35,30 @@ public class Config
     public static double startingMaxManaModifier = 0.0D;
     public static double startingMaxManaMultiplier = 1.0D;
     public static double startingCastSpeedMultiplier = 1.0D;
-    public static double startingSpellDamageModifier = 1.0D;
-    public static double startingSpellDamageMultiplier = 0.0D;
+    public static double startingSpellDamageModifier = 0.0D;
+    public static double startingSpellDamageMultiplier = 1.0D;
     public static double startingSpellEfficiencyMultiplier = 1.0D;
     public static double startingManaRegenMultiplier = 1.0D;
 
     @SubscribeEvent
     static void onLoad(final ModConfigEvent event)
     {
-        startingMaxManaMultiplier = STARTING_MAX_MANA_MULTIPLIER.get();
-        startingMaxManaModifier = STARTING_MAX_MANA.get();
-        startingCastSpeedMultiplier = STARTING_CAST_SPEED.get();
-        startingSpellDamageModifier = STARTING_SPELL_DAMAGE.get();
-        startingSpellDamageMultiplier = STARTING_SPELL_DAMAGE_MULTIPLIER.get();
-        startingManaRegenMultiplier = STARTING_MANA_REGEN.get();
-        startingSpellEfficiencyMultiplier = STARTING_SPELL_EFFICIENCY.get();
+
+    }
+
+    public static double getAttributeConfigDefaultValue(RegistryObject<Attribute> attribute)
+    {
+        if (attribute == null) return 0;
+        else
+        {
+            if (attribute == MAX_MANA) return STARTING_MAX_MANA.get();
+            if (attribute == MAX_MANA_MULTIPLIER) return STARTING_MAX_MANA_MULTIPLIER.get();
+            if (attribute == MANA_REGEN) return STARTING_MANA_REGEN.get();
+            if (attribute == CAST_SPEED) return STARTING_CAST_SPEED.get();
+            if (attribute == SPELL_DAMAGE) return STARTING_SPELL_DAMAGE.get();
+            if (attribute == SPELL_DAMAGE_MULTIPLIER) return STARTING_SPELL_DAMAGE_MULTIPLIER.get();
+            if (attribute == SPELL_EFFICIENCY) return STARTING_SPELL_EFFICIENCY.get();
+        }
+        return 0;
     }
 }

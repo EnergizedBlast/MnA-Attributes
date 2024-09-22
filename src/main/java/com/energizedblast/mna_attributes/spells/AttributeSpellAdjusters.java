@@ -35,8 +35,7 @@ public final class AttributeSpellAdjusters
     public static final boolean checkSpellDamageAttribute(SpellAdjustingContext context) {
         if (context.caster != null && context.caster instanceof Player && (context.stage == SpellCastStage.CASTING || context.stage == SpellCastStage.SPELL_TOOLTIP))
         {
-            if ((context.caster).getAttributeValue(AttributeRegistry.SPELL_DAMAGE_MULTIPLIER.get()) == 1f) return false;
-            return ((context.caster).getAttributeValue(AttributeRegistry.SPELL_DAMAGE.get()) != 1f);
+            return (((context.caster).getAttributeValue(AttributeRegistry.SPELL_DAMAGE_MULTIPLIER.get()) != 1f) || ((context.caster).getAttributeValue(AttributeRegistry.SPELL_DAMAGE.get()) != 0f));
         } else {
             return false;
         }

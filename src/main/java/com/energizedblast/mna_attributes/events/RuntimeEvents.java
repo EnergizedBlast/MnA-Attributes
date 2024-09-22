@@ -1,5 +1,6 @@
 package com.energizedblast.mna_attributes.events;
 
+import com.energizedblast.mna_attributes.Config;
 import com.energizedblast.mna_attributes.handlers.AttributeHandlers;
 import com.energizedblast.mna_attributes.registry.AttributeRegistry;
 import com.mna.api.affinity.Affinity;
@@ -45,6 +46,13 @@ public class RuntimeEvents {
                     player.getAttribute(AttributeHandlers.getAffinityAttribute(iAffinity)).setBaseValue(cachedValues.get(iAffinity));
                 }
             });
+
+            // Apply config default values to the player, may need to change if other mods do not use attribute modifiers when applying attribute changes
+            for (RegistryObject<Attribute> attr : AttributeRegistry.ATTRIBUTES.getEntries())
+            {
+                if (attr.get().getDescriptionId().contains("affinity")) continue;
+                ((Player) event.getEntity()).getAttribute(attr.get()).setBaseValue(Config.getAttributeConfigDefaultValue(attr));
+            }
         }
     }
 
