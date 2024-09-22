@@ -51,7 +51,7 @@ public final class AttributeSpellAdjusters
             recipe.iterateComponents((c) -> {
                 for (Attribute attr : c.getContainedAttributes()) {
                     if (attr == Attribute.DAMAGE) {
-                        c.setValue(attr, Math.min(0, (c.getValue(attr) + attrSpellPower) * attrSpellPowerMultiplier));
+                        c.setValue(attr, Math.max(0, (c.getValue(attr) + attrSpellPower) * attrSpellPowerMultiplier));
                     }
                 }
             });
