@@ -68,7 +68,7 @@ public class AttributeHandlers
         {
             ICastingResource castResource = getPlayerCastingResource(player);
 
-            double attrMaxManaBase = player.getAttributeBaseValue(AttributeRegistry.MAX_MANA.get());
+            double attrMaxManaBase = player.getAttributeValue(AttributeRegistry.MAX_MANA.get());
             double attrMaxManaMultiplier = player.getAttributeValue(AttributeRegistry.MAX_MANA_MULTIPLIER.get());
             double attrManaRegenModifier = player.getAttributeValue(AttributeRegistry.MANA_REGEN.get());
 
