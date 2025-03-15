@@ -8,7 +8,7 @@ Currently implemented attributes:
 
     Max Mana: Flat additive bonus mana
     Max Mana Multiplier: Multiplies the player's BASE mana
-    Mana Regen: Shortens the time mana takes to fill up (values +2 instantly fill mana)
+    Mana Regen: Shortens the time mana takes to fill up (e.g. 2 = fills back twice as fast, 0.5 = fills back half as fast)    
     Cast Speed: Multiplies the cooldown time between spell casts
     Spell Efficiency: Divides the mana costs of spell casts (higher value = lower cost)
     Spell Damage: Flat additive bonus damage on all damage components
