@@ -77,12 +77,17 @@ public class AttributeHandlers
 
             castResource.addModifier("mna_attributes:max_mana_base_modifier", (float)attrMaxManaBase);
             castResource.addModifier("mna_attributes:max_mana_multiplier_modifier", (float)maxManaMultiplierAmount);
-            castResource.addRegenerationModifier("mna_attributes:mana_regen_modifier", 2 - (float)attrManaRegenModifier);
+            castResource.addRegenerationModifier("mna_attributes:mana_regen_modifier", calculateRegenMod(attrManaRegenModifier));
 
             for (Affinity iAffinity : Affinity.CoreSix())
             {
                 pPlayer.setAffinityDepth(iAffinity, (float)player.getAttributeValue(getAffinityAttribute(iAffinity)));
             }
         });
+    }
+
+    public static float calculateRegenMod(double attrManaRegenModifier)
+    {
+        return ((1f/(float)attrManaRegenModifier) - 1f);
     }
 }

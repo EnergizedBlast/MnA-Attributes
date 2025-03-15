@@ -20,7 +20,7 @@ public class Config
     public static final ForgeConfigSpec.DoubleValue STARTING_MAX_MANA_MULTIPLIER = BUILDER
             .defineInRange("startingMaxManaMultiplier", 1.0D, -2048.0D, 2048.0D);
     public static final ForgeConfigSpec.DoubleValue STARTING_MANA_REGEN = BUILDER
-            .defineInRange("startingManaRegenMultiplier", 1.0D, -2048.0D, 2.0D);
+            .defineInRange("startingManaRegenMultiplier", 1.0D, 0.01D, 100.0D);
     public static final ForgeConfigSpec.DoubleValue STARTING_CAST_SPEED = BUILDER
             .defineInRange("startingCastSpeedMultiplier", 1.0D, 0.001D, 2048.0D);
     public static final ForgeConfigSpec.DoubleValue STARTING_SPELL_DAMAGE = BUILDER
