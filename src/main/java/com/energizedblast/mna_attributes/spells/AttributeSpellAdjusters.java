@@ -24,11 +24,12 @@ public final class AttributeSpellAdjusters
         }
     }
 
-    public static final void modifySpellEfficiencyAttribute(ISpellDefinition recipe, @Nullable LivingEntity caster) {
+    public static final void modifySpellEfficiencyAttribute(SpellAdjustingContext context) {
+        LivingEntity caster = context.caster;
         if (caster != null)
         {
             double attrSpellEfficiency = caster.getAttribute(AttributeRegistry.SPELL_EFFICIENCY.get()).getValue();
-            recipe.setManaCost(Math.max(1, recipe.getManaCost() * (2f - (float) attrSpellEfficiency)));
+            context.spell.setManaCost(Math.max(1, context.spell.getManaCost() * (2f - (float)attrSpellEfficiency)));
         }
     }
 
@@ -41,13 +42,14 @@ public final class AttributeSpellAdjusters
         }
     }
 
-    public static final void modifySpellDamageAttribute(ISpellDefinition recipe, @Nullable LivingEntity caster) {
+    public static final void modifySpellDamageAttribute(SpellAdjustingContext context) {
+        LivingEntity caster = context.caster;
         if (caster != null)
         {
             float attrSpellPower = (float)caster.getAttributeValue(AttributeRegistry.SPELL_DAMAGE.get());
             float attrSpellPowerMultiplier = (float)caster.getAttributeValue(AttributeRegistry.SPELL_DAMAGE_MULTIPLIER.get());
 
-            recipe.iterateComponents((c) -> {
+            context.spell.iterateComponents((c) -> {
                 for (Attribute attr : c.getContainedAttributes()) {
                     if (attr == Attribute.DAMAGE) {
                         c.setValue(attr, Math.max(0, (c.getValue(attr) + attrSpellPower) * attrSpellPowerMultiplier));
