@@ -21,7 +21,7 @@ public class AttributeRegistry {
     public static final DeferredRegister<Attribute> ATTRIBUTES = DeferredRegister.create(ForgeRegistries.ATTRIBUTES, MODID);
     public static final HashMap<RegistryObject<Attribute>, UUID> UUIDS = new HashMap<>();
     public static final RegistryObject<Attribute> MANA_REGEN = registerAttribute(ATTRIBUTES, MODID, "mana_regen", (id) -> new RangedAttribute(id, Config.startingManaRegenMultiplier, 0.01D, 100.0D).setSyncable(true));
-    public static final RegistryObject<Attribute> MAX_MANA = registerAttribute(ATTRIBUTES, MODID, "max_mana", (id) -> new RangedAttribute(id, Config.startingMaxManaModifier, -Double.MAX_VALUE, Double.MAX_VALUE).setSyncable(true));
+    public static final RegistryObject<Attribute> MAX_MANA = registerAttribute(ATTRIBUTES, MODID, "max_mana", (id) -> new RangedAttribute(id, Config.startingMaxManaModifier, -999999999, 999999999).setSyncable(true));
     // Separate multiplier attribute is required to allow for keeping track of multiplicative modifiers since the API currently supports only additive modifiers or set operations.
     public static final RegistryObject<Attribute> MAX_MANA_MULTIPLIER = registerAttribute(ATTRIBUTES, MODID, "max_mana_multiplier", (id) -> new RangedAttribute(id, Config.startingMaxManaMultiplier, 0.0D, 2048.0D).setSyncable(true));
     public static final RegistryObject<Attribute> CAST_SPEED = registerAttribute(ATTRIBUTES, MODID, "cast_speed", (id) -> new RangedAttribute(id, Config.startingCastSpeedMultiplier, 0.001D, 2048.0D).setSyncable(true));
@@ -30,6 +30,7 @@ public class AttributeRegistry {
     public static final RegistryObject<Attribute> SPELL_EFFICIENCY = registerAttribute(ATTRIBUTES, MODID, "spell_efficiency", (id) -> new RangedAttribute(id, Config.startingSpellEfficiencyMultiplier, -2048.0D, 2048.0D).setSyncable(true));
     public static final RegistryObject<Attribute> SPELL_DAMAGE = registerAttribute(ATTRIBUTES, MODID, "spell_damage", (id) -> new RangedAttribute(id, Config.startingSpellDamageModifier, -2048.0D, 2048.0D).setSyncable(true));
     public static final RegistryObject<Attribute> SPELL_DAMAGE_MULTIPLIER = registerAttribute(ATTRIBUTES, MODID, "spell_damage_multiplier", (id) -> new RangedAttribute(id, Config.startingSpellDamageMultiplier, 0.0D, 2048.0D).setSyncable(true));
+    public static final RegistryObject<Attribute> SPELL_DURATION_MULTIPLIER = registerAttribute(ATTRIBUTES, MODID, "spell_duration_multiplier", (id) -> new RangedAttribute(id, Config.startingSpellDurationMultiplier, 0.0D, 2048.0D).setSyncable(true));
 
     // Affinity Attributes
     public static final RegistryObject<Attribute> AFFINITY_ARCANE = registerAttribute(ATTRIBUTES, MODID, "affinity_arcane", (id) -> new RangedAttribute(id, 0.0D, 0.0D, 100.0D).setSyncable(true));
@@ -56,6 +57,7 @@ public class AttributeRegistry {
             event.add(e, SPELL_EFFICIENCY.get());
             event.add(e, SPELL_DAMAGE.get());
             event.add(e, SPELL_DAMAGE_MULTIPLIER.get());
+            event.add(e, SPELL_DURATION_MULTIPLIER.get());
 
             event.add(e, AFFINITY_ARCANE.get());
             event.add(e, AFFINITY_EARTH.get());

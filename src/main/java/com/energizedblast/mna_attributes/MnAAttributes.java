@@ -15,6 +15,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
 
 import static com.energizedblast.mna_attributes.registry.AttributeRegistry.ATTRIBUTES;
+import static com.energizedblast.mna_attributes.registry.MobEffectRegistry.EFFECTS;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(MnAAttributes.MODID)
@@ -30,6 +31,7 @@ public class MnAAttributes
         modEventBus.addListener(this::commonSetup);
 
         ATTRIBUTES.register(modEventBus);
+        EFFECTS.register(modEventBus);
 
         MinecraftForge.EVENT_BUS.register(this);
 

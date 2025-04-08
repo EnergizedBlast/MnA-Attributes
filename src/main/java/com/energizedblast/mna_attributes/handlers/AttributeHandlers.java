@@ -41,6 +41,11 @@ public class AttributeHandlers
             for (Affinity iAffinity : Affinity.CoreSix())
             {
                 if (event.getAffinity().getShiftAffinity() == iAffinity) continue;
+
+                Attribute attr = getAffinityAttribute(iAffinity.getShiftAffinity());
+                double affinityAttrValue = player.getAttributeBaseValue(attr);
+                if (affinityAttrValue == 0) continue; // Prevents phantom affinity icons from spawning
+
                 setAffinityAttribute(player, iAffinity, -(event.getShift()/2f));
             }
             setAffinityAttribute(player, event.getAffinity().getShiftAffinity(), event.getShift());
@@ -81,7 +86,9 @@ public class AttributeHandlers
 
             for (Affinity iAffinity : Affinity.CoreSix())
             {
-                pPlayer.setAffinityDepth(iAffinity, (float)player.getAttributeValue(getAffinityAttribute(iAffinity)));
+                float affinityValue = (float)player.getAttributeValue(getAffinityAttribute(iAffinity));
+                //if (affinityValue == 0) continue;
+                pPlayer.setAffinityDepth(iAffinity, affinityValue);
             }
         });
     }

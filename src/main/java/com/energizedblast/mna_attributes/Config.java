@@ -27,6 +27,8 @@ public class Config
             .defineInRange("startingSpellDamageModifier", 0.0D, -2048.0D, 2048.0D);
     public static final ForgeConfigSpec.DoubleValue STARTING_SPELL_DAMAGE_MULTIPLIER = BUILDER
             .defineInRange("startingSpellDamageMultiplier", 1.0D, 0.0D, 2048.0D);
+    public static final ForgeConfigSpec.DoubleValue STARTING_SPELL_DURATION_MULTIPLIER = BUILDER
+            .defineInRange("startingSpellDurationMultiplier", 1.0D, 0.0D, 2048.0D);
     public static final ForgeConfigSpec.DoubleValue STARTING_SPELL_EFFICIENCY = BUILDER
             .defineInRange("startingSpellEfficiencyMultiplier", 1.0D, -2048.0D, 2048.0D);
 
@@ -37,6 +39,7 @@ public class Config
     public static double startingCastSpeedMultiplier = 1.0D;
     public static double startingSpellDamageModifier = 0.0D;
     public static double startingSpellDamageMultiplier = 1.0D;
+    public static double startingSpellDurationMultiplier = 1.0D;
     public static double startingSpellEfficiencyMultiplier = 1.0D;
     public static double startingManaRegenMultiplier = 1.0D;
 
@@ -57,6 +60,7 @@ public class Config
             if (attribute == CAST_SPEED) return STARTING_CAST_SPEED.get();
             if (attribute == SPELL_DAMAGE) return STARTING_SPELL_DAMAGE.get();
             if (attribute == SPELL_DAMAGE_MULTIPLIER) return STARTING_SPELL_DAMAGE_MULTIPLIER.get();
+            if (attribute == SPELL_DURATION_MULTIPLIER) return STARTING_SPELL_DURATION_MULTIPLIER.get();
             if (attribute == SPELL_EFFICIENCY) return STARTING_SPELL_EFFICIENCY.get();
         }
         return 0;
