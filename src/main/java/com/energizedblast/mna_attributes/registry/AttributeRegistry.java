@@ -55,6 +55,7 @@ public class AttributeRegistry {
             event.add(e, MANA_REGEN.get());
             event.add(e, MAX_MANA.get());
             event.add(e, MAX_MANA_MULTIPLIER.get());
+            event.add(e, MAX_MANA_MULTIPLIER_FINAL.get());
             event.add(e, CAST_SPEED.get());
             event.add(e, SPELL_EFFICIENCY.get());
             event.add(e, SPELL_DAMAGE.get());

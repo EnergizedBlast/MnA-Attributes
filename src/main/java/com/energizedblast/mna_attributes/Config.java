@@ -19,6 +19,8 @@ public class Config
             .defineInRange("startingMaxManaModifier", 0.0D, -Double.MAX_VALUE, Double.MAX_VALUE);
     public static final ForgeConfigSpec.DoubleValue STARTING_MAX_MANA_MULTIPLIER = BUILDER
             .defineInRange("startingMaxManaMultiplier", 1.0D, -2048.0D, 2048.0D);
+    public static final ForgeConfigSpec.DoubleValue STARTING_MAX_MANA_MULTIPLIER_FINAL = BUILDER
+                .defineInRange("startingMaxManaMultiplier", 1.0D, 0.0D, 2048.0D);
     public static final ForgeConfigSpec.DoubleValue STARTING_MANA_REGEN = BUILDER
             .defineInRange("startingManaRegenMultiplier", 1.0D, 0.01D, 100.0D);
     public static final ForgeConfigSpec.DoubleValue STARTING_CAST_SPEED = BUILDER
@@ -57,6 +59,7 @@ public class Config
         {
             if (attribute == MAX_MANA) return STARTING_MAX_MANA.get();
             if (attribute == MAX_MANA_MULTIPLIER) return STARTING_MAX_MANA_MULTIPLIER.get();
+            if (attribute == MAX_MANA_MULTIPLIER_FINAL) return STARTING_MAX_MANA_MULTIPLIER_FINAL.get();
             if (attribute == MANA_REGEN) return STARTING_MANA_REGEN.get();
             if (attribute == CAST_SPEED) return STARTING_CAST_SPEED.get();
             if (attribute == SPELL_DAMAGE) return STARTING_SPELL_DAMAGE.get();
