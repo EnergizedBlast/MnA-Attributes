@@ -75,12 +75,13 @@ public class AttributeHandlers
 
             double attrMaxManaBase = player.getAttributeValue(AttributeRegistry.MAX_MANA.get());
             double attrMaxManaMultiplier = player.getAttributeValue(AttributeRegistry.MAX_MANA_MULTIPLIER.get());
+            double attrMaxManaMultiplierFinal = player.getAttributeValue(AttributeRegistry.MAX_MANA_MULTIPLIER_FINAL.get());
             double attrManaRegenModifier = player.getAttributeValue(AttributeRegistry.MANA_REGEN.get());
 
             // Max mana modifiers are additive in MnA, getting the resulting bonus mana conferred from max mana multiplier is required
-            double maxManaMultiplierAmount = (castResource.getMaxAmountBaseline() * attrMaxManaMultiplier) - castResource.getMaxAmountBaseline();
+            double maxManaMultiplierAmount = (castResource.getMaxAmountBaseline() * attrMaxManaMultiplier * attrMaxManaMultiplierFinal) - castResource.getMaxAmountBaseline();
 
-            castResource.addModifier("mna_attributes:max_mana_base_modifier", (float)attrMaxManaBase);
+            castResource.addModifier("mna_attributes:max_mana_base_modifier", (float)attrMaxManaBase * (float)attrMaxManaMultiplierFinal);
             castResource.addModifier("mna_attributes:max_mana_multiplier_modifier", (float)maxManaMultiplierAmount);
             castResource.addRegenerationModifier("mna_attributes:mana_regen_modifier", calculateRegenMod(attrManaRegenModifier));
 

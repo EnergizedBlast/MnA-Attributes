@@ -33,6 +33,8 @@
 
   "attribute.name.mna_attributes.max_mana.desc": "使你的魔力容量提升一定值。",
   "attribute.name.mna_attributes.max_mana_multiplier.desc": "使你的魔力容量提升一定百分比。此效果不与固定最高魔力值加成叠加。",
+  "attribute.name.mna_attributes.max_mana_multiplier_final": "最高魔力值最终乘数",
+  "attribute.name.mna_attributes.max_mana_multiplier_final.desc": "使你的魔力容量提升一定百分比。这个加成是在计算固定最高魔力值加成与最高魔力值乘数加成后才计算的。",
   "attribute.name.mna_attributes.mana_regen.desc": "决定你的魔力恢复速度有多快。这个值用来除你的魔力从空到满所需的时间，数值越高表示魔力恢复速度越快。",
   "attribute.name.mna_attributes.cast_speed.desc": "决定你施展法术后的冷却时间有多长。这个值用来除你的基本法术冷却时间，数值越高表示法术冷却速度越快。",
   "attribute.name.mna_attributes.spell_efficiency.desc": "给你施展法术时的魔力消耗量提供一个乘数。这个值大于1时会减少消耗，小于1时则增加消耗。",

@@ -36,6 +36,7 @@ public class Config
 
     public static double startingMaxManaModifier = 0.0D;
     public static double startingMaxManaMultiplier = 1.0D;
+    public static double startingMaxManaMultiplierFinal = 1.0D;
     public static double startingCastSpeedMultiplier = 1.0D;
     public static double startingSpellDamageModifier = 0.0D;
     public static double startingSpellDamageMultiplier = 1.0D;

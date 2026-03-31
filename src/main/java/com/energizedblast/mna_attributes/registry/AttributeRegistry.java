@@ -24,6 +24,8 @@ public class AttributeRegistry {
     public static final RegistryObject<Attribute> MAX_MANA = registerAttribute(ATTRIBUTES, MODID, "max_mana", (id) -> new RangedAttribute(id, Config.startingMaxManaModifier, -999999999, 999999999).setSyncable(true));
     // Separate multiplier attribute is required to allow for keeping track of multiplicative modifiers since the API currently supports only additive modifiers or set operations.
     public static final RegistryObject<Attribute> MAX_MANA_MULTIPLIER = registerAttribute(ATTRIBUTES, MODID, "max_mana_multiplier", (id) -> new RangedAttribute(id, Config.startingMaxManaMultiplier, 0.0D, 2048.0D).setSyncable(true));
+    public static final RegistryObject<Attribute> MAX_MANA_MULTIPLIER_FINAL = registerAttribute(ATTRIBUTES, MODID, "max_mana_multiplier_final", (id) -> new RangedAttribute(id, Config.startingMaxManaMultiplierFinal, 0.0D, 2048.0D).setSyncable(true));
+
     public static final RegistryObject<Attribute> CAST_SPEED = registerAttribute(ATTRIBUTES, MODID, "cast_speed", (id) -> new RangedAttribute(id, Config.startingCastSpeedMultiplier, 0.001D, 2048.0D).setSyncable(true));
 
     // Spell Adjuster Attributes

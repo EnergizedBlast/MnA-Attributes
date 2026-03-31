@@ -1,6 +1,7 @@
 {
   "attribute.name.mna_attributes.max_mana": "Max Mana",
   "attribute.name.mna_attributes.max_mana_multiplier": "Max Mana Multiplier",
+  "attribute.name.mna_attributes.max_mana_multiplier_final": "Max Mana Final Multiplier",
   "attribute.name.mna_attributes.mana_regen": "Mana Regen",
   "attribute.name.mna_attributes.cast_speed": "Cast Speed",
   "attribute.name.mna_attributes.spell_efficiency": "Spell Efficiency",
@@ -33,6 +34,7 @@
 
   "attribute.name.mna_attributes.max_mana.desc": "Increases your mana capacity by a flat amount.",
   "attribute.name.mna_attributes.max_mana_multiplier.desc": "Increases your mana capacity by a percentage. Does not stack with flat Max Mana bonus.",
+  "attribute.name.mna_attributes.max_mana_multiplier_final.desc": "Increases your mana capacity by a percentage. This bonus is calculated after flat Max Mana and Max Mana Multiplier bonuses have been applied.",
   "attribute.name.mna_attributes.mana_regen.desc": "Determines how fast you regenerate mana. This value divides the time it takes to refill your mana from empty to full, where higher values mean faster mana regen.",
   "attribute.name.mna_attributes.cast_speed.desc": "Determines how long your cooldown is after casting a spell. This value divides your base spell cooldowns, where higher values means faster cooldowns.",
   "attribute.name.mna_attributes.spell_efficiency.desc": "Multiplies your mana costs when casting spells. Values above 1 decrease the cost, values below 1 increase it.",
