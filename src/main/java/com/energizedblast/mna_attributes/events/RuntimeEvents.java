@@ -77,7 +77,7 @@ public class RuntimeEvents {
     public static void onCooldownCalculate(SpellCooldownCalculatingEvent event)
     {
         Player player = event.getCaster();
-        event.setCooldown((int)(event.getCooldown()/player.getAttributeBaseValue(AttributeRegistry.CAST_SPEED.get())));
+        event.setCooldown((int)(event.getCooldown()/player.getAttributeValue(AttributeRegistry.CAST_SPEED.get())));
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST, receiveCanceled = true)
